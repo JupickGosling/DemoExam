@@ -1,0 +1,81 @@
+create database [TradeGizbrekht]
+go
+use [TradeGizbrekht]
+go
+create table [Role]
+(
+	RoleID int primary key identity,
+	RoleName nvarchar(100) not null
+)
+go
+create table [User]
+(
+	UserID int primary key identity,
+	UserSurname nvarchar(100) not null,
+	UserName nvarchar(100) not null,
+	UserPatronymic nvarchar(100) not null,
+	UserLogin nvarchar(max) not null,
+	UserPassword nvarchar(max) not null,
+	UserRole int foreign key references [Role](RoleID) not null
+)
+go
+create table [Order]
+(
+	OrderID int primary key identity,
+	OrderStatus nvarchar(max) not null,
+	OrderDeliveryDate datetime not null,
+	OrderPickupPoint nvarchar(max) not null
+)
+go
+create table Product
+(
+	ProductArticleNumber nvarchar(100) primary key,
+	ProductName nvarchar(max) not null,
+	ProductDescription nvarchar(max) not null,
+	ProductCategory nvarchar(max) not null,
+	ProductPhoto nvarchar(max) not null,
+	ProductManufacturer nvarchar(max) not null,
+	ProductCost decimal(19,4) not null,
+	ProductDiscountAmount tinyint null,
+	ProductQuantityInStock int not null,
+	ProductStatus bit not null,
+)
+go
+create table OrderProduct
+(
+	OrderID int foreign key references [Order](OrderID) not null,
+	ProductArticleNumber nvarchar(100) foreign key references Product(ProductArticleNumber) not null,
+	Primary key (OrderID,ProductArticleNumber)
+)
+use [TradeGizbrekht]
+go
+insert into dbo.Product values ('	А112Т4	','	Творческий набор	','	Творческий набор юного художника для рисования	','	Творчество	','	А112Т4.jpg	','	АртМир	',	889	,	2	,	6	,	1	)
+insert into dbo.Product values ('	H648T5	','	Набор для рисования	','	Набор для рисования и творчества в чемоданчике с мольбертом	','	Рисование	','	H648T5.jpg	','	Волшебная мастерская	',	849	,	4	,	12	,	1	)
+insert into dbo.Product values ('	G753H6	','	Набор для рисования	','	Набор для рисования и творчества, 145 предметов, розовый	','	Рисование	','	G753H6.png	','	ОригамиПлюс	',	1999	,	5	,	4	,	1	)
+insert into dbo.Product values ('	N745G4	','	Творческий набор	','	Molly набор для творчества Флюид Арт Планета Земля	','	Творчество	','	N745G4.jpg	','	Волшебная мастерская	',	1000	,	2	,	6	,	1	)
+insert into dbo.Product values ('	Y354G6	','	Творческий набор	','	Origami Набор для творчества оригами На земле, на воде, на воздухе	','	Творчество	','	Y354G6.jpg	','	АртМир	',	200	,	3	,	8	,	1	)
+insert into dbo.Product values ('	K674F4	','	Творческий набор	','	Aquabeads Аквамозаика Студия новичка с формой-перевертышем	','	Творчество	','	K674F4.jpg	','	АртМир	',	1170	,	4	,	2	,	1	)
+insert into dbo.Product values ('	C745H6	','	Набор для рисования	','	Набор для рисования и творчества	','	Рисование	','	C745H6.png	','	ОригамиПлюс	',	999	,	3	,	4	,	1	)
+insert into dbo.Product values ('	H745G5	','	Творческий набор	','	Набор для детского творчества Умный песок Кексики	','	Творчество	','	H745G5.jpg	','	ФлюидАрт	',	645	,	5	,	15	,	1	)
+insert into dbo.Product values ('	O735F5	','	набор для рисования	','	Я-Художник! / Набор для рисования из 10 предметов	','	Рисование	','	O735F5.jpg	','	АртМир	',	1300	,	3	,	5	,	1	)
+insert into dbo.Product values ('	G735G6	','	Набор для рисования	','	Набор для рисования и творчества, 176 предметов, с мольбертом, розовый	','	Рисование	','	G735G6.png	','	Волшебная мастерская	',	1400	,	4	,	8	,	1	)
+insert into dbo.Product values ('	X485G6	','	Творческий набор	','	GHK Набор для творчества Гравюра 20 x 25.5 см №15 Игривый котенок (золото)','Творчество','А112Т5.jpg','АртМир',	241	,	5	,	5	,	1	)
+insert into dbo.Product values ('	L946G6	','	Набор для рисования	','	Набор для раскрашивания панно многослойное CRAFT MASTER	','	Рисование	','	H648T6.jpg	','	Волшебная мастерская	',	1827	,	3	,	9	,	1	)
+insert into dbo.Product values ('	D845G5	','	Набор для рисования	','	Буква- ленд / Набор для творчества / Развивающий набор	','	Рисование	','	G753H7.png	','	ОригамиПлюс	',	311	,	3	,	5	,	1	)
+insert into dbo.Product values ('	S538H6	','	Творческий набор	','	Набор для творчества Магический песок - создай гребешок 8 цветов','	Творчество	','	N745G5.jpg	','	Волшебная мастерская	',	543	,	3	,	4	,	1	)
+insert into dbo.Product values ('	X745H6	','	Творческий набор	','	Волшебная Мастерская Мозаика из пайеток 3D Слон 3D-06	','	Творчество	','	Y354G7.jpg	','	АртМир	',	1500	,	2	,	23	,	1	)
+insert into dbo.Product values ('	L845G5	','	Творческий набор	','	GHK Набор для творчества Гравюра 20 x 25.5 см №10 Пушистый котенок	','	Творчество	','	K674F5.jpg	','	АртМир	',	1456	,	2	,	4	,	1	)
+insert into dbo.Product values ('	S735G5	','	Набор для рисования	','	Набор для творчества Фонарик Новогодняя ночь	','	Рисование	','	C745H7.png	','	ОригамиПлюс	',	233	,	4	,	5	,	1	)
+insert into dbo.Product values ('	S739H7	','	Творческий набор	','	BONDIBON Набор для творчества Копилка-подарок Миша	','	Творчество	','	H745G6.jpg	','	ФлюидАрт	',	268	,	4	,	12	,	1	)
+insert into dbo.Product values ('	A385H6	','	набор для рисования	','	Набор для рисования и творчества детский игровой	','	Рисование	','	O735F6.jpg	','	АртМир	',	176	,	2	,	15	,	1	)
+insert into dbo.Product values ('	K946G6	','	Набор для рисования	','	Волшебная Мастерская Набор для творчества Незабудка	','	Рисование	','	G735G7.png	','	Волшебная мастерская	',	784	,	4	,	5	,	1	)
+insert into dbo.Product values ('	V745G5	','	Творческий набор	','	BONDIBON Набор для творчества Аквамозаика 3D Слон	','	Творчество	','	А112Т6.jpg	','	АртМир	',	1678	,	5	,	8	,	1	)
+insert into dbo.Product values ('	V834G6	','	Набор для рисования	','	ГАММА Набор юного художника Классический в подарочной коробке	','	Рисование	','	H648T7.jpg	','	Волшебная мастерская	',	1267	,	3	,	9	,	1	)
+insert into dbo.Product values ('	P946G6	','	Набор для рисования	','	Набор для творчества Луч Витраж светящийся	','	Рисование	','	G753H8.png	','	ОригамиПлюс	',	2300	,	4	,	3	,	1	)
+insert into dbo.Product values ('	S384G5	','	Творческий набор	','	Набор для творчества Canal Toys ART LAB для создания картин	','	Творчество	','	N745G6.jpg	','	Волшебная мастерская	',	543	,	5	,	5	,	1	)
+insert into dbo.Product values ('	V946G5	','	Творческий набор	','	Набор для творчества Рыжий кот Холст с красками по номерам	','	Творчество	','	Y354G8.jpg	','	АртМир	',	245	,	3	,	7	,	1	)
+insert into dbo.Product values ('	F935G5	','	Творческий набор	','	Origami Набор для детского творчества Оригами Братья наши меньшие	','	Творчество	','	K674F6.jpg	','	АртМир	',	2467	,	3	,	24	,	1	)
+insert into dbo.Product values ('	V734G5	','	Набор для рисования	','	BONDIBON Набор для творчества Шьем для любимой куклы 	','	Рисование	','	C745H8.png	','	ОригамиПлюс	',	754	,	5	,	5	,	1	)
+insert into dbo.Product values ('	A745B6	','	Творческий набор	','	Волшебная Мастерская Мозаика из пайеток на холсте Бабочка	','	Творчество	','	H745G7.jpg	','	ФлюидАрт	',	129	,	2	,	7	,	1	)
+insert into dbo.Product values ('	N446G5	','	набор для рисования	','	GHK Набор для творчества Гравюра 20 x 25.5 см №16 Москва','	Рисование	','	O735F7.jpg	','	АртМир	',	643	,	4	,	26	,	1	)
+insert into dbo.Product values ('	A972G5	','	Набор для рисования	','	BONDIBON Набор для творчества Аквамозаика 3D Медведь	','	Творчество	','	G735G8.png	','	Волшебная мастерская	',	1567	,	3	,	3	,	1	)
